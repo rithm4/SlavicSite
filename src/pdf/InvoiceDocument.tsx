@@ -1,5 +1,6 @@
 import { Document, Font, Page, StyleSheet, Text, View, pdf } from '@react-pdf/renderer'
 import { addDays } from 'date-fns'
+import { deliveryRules } from '../config/catalog'
 import { company, currency, invoiceValidityDays, vatRate } from '../config/company'
 import { formatDateRo, fromIsoDate } from '../lib/dates'
 import { amountInWords, formatMoney, formatPallets, formatQty } from '../lib/format'
@@ -189,7 +190,9 @@ function InvoiceDocument({ order }: { order: SavedOrder }) {
             <Text style={s.payLabel}>{draft.deliveryMethod === 'delivery' ? 'Livrare' : 'Ridicare'}</Text>
             <Text style={{ flex: 1 }}>
               {draft.date ? formatDateRo(fromIsoDate(draft.date)) : '—'}
-              {draft.deliveryMethod === 'delivery' ? `, ${draft.deliveryAddress}` : ', de la sediul firmei'}
+              {draft.deliveryMethod === 'delivery'
+                ? `, ${draft.deliveryAddress}${deliveryRules.fee === null ? ' (costul livrării se stabilește separat)' : ''}`
+                : ', de la sediul firmei'}
             </Text>
           </View>
         </View>

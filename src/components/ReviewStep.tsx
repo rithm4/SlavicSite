@@ -1,3 +1,4 @@
+import { deliveryRules } from '../config/catalog'
 import { currency } from '../config/company'
 import { formatDateRo, fromIsoDate } from '../lib/dates'
 import { approxPallets, formatMoney, formatPallets, formatQty } from '../lib/format'
@@ -57,6 +58,7 @@ export function ReviewStep({ draft, quote }: StepProps) {
               <>
                 <br />
                 {draft.deliveryAddress}
+                {deliveryRules.fee === null && <small className="muted"> · costul livrării se stabilește separat</small>}
               </>
             )}
           </p>

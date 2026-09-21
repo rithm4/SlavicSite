@@ -29,7 +29,13 @@ export function ScheduleStep({ draft, update, quote, showErrors, earliest, lates
         {(
           [
             ['pickup', 'Ridicare de la sediu', 'gratuit'],
-            ['delivery', 'Livrare la adresă', `${formatMoney(deliveryRules.fee)} ${currency}, gratuit peste ${formatMoney(deliveryRules.freeFrom)} ${currency}`],
+            [
+              'delivery',
+              'Livrare la adresă',
+              deliveryRules.fee === null
+                ? 'costul se stabilește separat'
+                : `${formatMoney(deliveryRules.fee)} ${currency}, gratuit peste ${formatMoney(deliveryRules.freeFrom)} ${currency}`,
+            ],
           ] as const
         ).map(([value, label, note]) => (
           <label key={value} className={draft.deliveryMethod === value ? 'is-active' : ''}>

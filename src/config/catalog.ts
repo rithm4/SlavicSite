@@ -71,7 +71,8 @@ export const volumeDiscounts = [
 ]
 
 export const deliveryRules = {
-  fee: 18,
+  /** null = tariful nu e stabilit încă; livrarea nu intră în total și se discută separat. */
+  fee: null as number | null,
   /** Peste această valoare (produse, fără TVA), livrarea e gratuită. */
   freeFrom: 750,
 }

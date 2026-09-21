@@ -88,7 +88,10 @@ export function computeQuote(draft: OrderDraft): Quote {
   const discountPct = volumeDiscounts.find((d) => productsSubtotal >= d.minSubtotal)?.pct ?? 0
   const discount = round2(productsSubtotal * discountPct)
   const deliveryFee =
-    draft.deliveryMethod === 'delivery' && productsSubtotal > 0 && productsSubtotal < deliveryRules.freeFrom
+    deliveryRules.fee !== null &&
+    draft.deliveryMethod === 'delivery' &&
+    productsSubtotal > 0 &&
+    productsSubtotal < deliveryRules.freeFrom
       ? deliveryRules.fee
       : 0
   const netTotal = round2(productsSubtotal - discount + deliveryFee)
