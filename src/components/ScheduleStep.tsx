@@ -5,7 +5,7 @@ import { calendarRules, holidays } from '../config/calendar'
 import { deliveryRules } from '../config/catalog'
 import { currency } from '../config/company'
 import { formatDateRo, fromIsoDate, isFullyBooked, toIsoDate } from '../lib/dates'
-import { formatMoney } from '../lib/format'
+import { formatMoney, formatPallets } from '../lib/format'
 import type { StepProps } from './stepProps'
 
 interface ScheduleStepProps extends StepProps {
@@ -15,7 +15,7 @@ interface ScheduleStepProps extends StepProps {
   booked: Record<string, number>
 }
 
-export function ScheduleStep({ draft, update, showErrors, earliest, latest, leadDays, booked }: ScheduleStepProps) {
+export function ScheduleStep({ draft, update, quote, showErrors, earliest, latest, leadDays, booked }: ScheduleStepProps) {
   const selected = draft.date ? fromIsoDate(draft.date) : undefined
 
   return (
@@ -92,6 +92,8 @@ export function ScheduleStep({ draft, update, showErrors, earliest, latest, lead
             {draft.custom.length > 0 && ', include elementele personalizate'}.
             <br />
             Prima dată disponibilă: <strong>{formatDateRo(earliest)}</strong>.
+            <br />
+            Volum de transport: <strong>≈ {formatPallets(quote.totalPallets)}</strong>.
           </p>
           <ul className="legend">
             <li>

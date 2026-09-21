@@ -6,6 +6,17 @@ const moneyFormatter = new Intl.NumberFormat('ro-MD', {
 export const formatMoney = (n: number) => moneyFormatter.format(n)
 export const formatQty = (n: number) => new Intl.NumberFormat('ro-MD').format(n)
 
+const palletNumber = new Intl.NumberFormat('ro-MD', { maximumFractionDigits: 1 })
+
+/** „1 palet", „2,5 paleți", „20 de paleți". Sub 0,1 afișează „sub 0,1 paleți". */
+export function formatPallets(n: number): string {
+  if (n > 0 && n < 0.1) return 'sub 0,1 paleți'
+  const rounded = Math.round(n * 10) / 10
+  if (rounded === 1) return '1 palet'
+  const de = Number.isInteger(rounded) && rounded >= 20 && (rounded % 100 === 0 || rounded % 100 >= 20)
+  return `${palletNumber.format(rounded)}${de ? ' de' : ''} paleți`
+}
+
 // --- Suma în litere (ex. „o mie două sute cincizeci de euro, 40 cenți") ---
 
 type Gender = 'm' | 'f'
@@ -70,3 +81,6 @@ export function amountInWords(amount: number): string {
 
   return `${text}, ${String(cents).padStart(2, '0')} cenți`
 }
+
+/** Paleți aproximativi pentru afișare: „≈ 2,5 paleți" sau „sub 0,1 paleți". */
+export const approxPallets = (n: number) => (n > 0 && n < 0.1 ? 'sub 0,1 paleți' : `≈ ${formatPallets(n)}`)

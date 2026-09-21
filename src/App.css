@@ -456,10 +456,10 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 @media (max-width: 520px) {
-  .grid:not(.grid-4) {
+  .grid:not(.grid-4):not(.grid-3) {
     grid-template-columns: minmax(0, 1fr);
   }
-  .grid:not(.grid-4) .span-2 {
+  .grid:not(.grid-4):not(.grid-3) .span-2 {
     grid-column: auto;
   }
 }
@@ -1167,4 +1167,303 @@ textarea {
 
 .btn-add {
   padding: 11px;
+}
+
+/* ---------- Paleți / bucăți ---------- */
+
+.step-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 14px;
+}
+
+.step-title-row .step-title {
+  margin: 0;
+}
+
+.unit-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+}
+
+.unit-toggle .muted {
+  padding: 0 6px 0 8px;
+}
+
+.unit-toggle button {
+  padding: 5px 14px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.unit-toggle button.is-active {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.product-size {
+  font-weight: 400;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.qty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.qty-unit {
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.qty-stepper input {
+  width: 64px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 12px;
+}
+
+.custom-qty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 14px;
+}
+
+.field-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.custom-qty .qty {
+  flex-direction: row;
+  gap: 10px;
+}
+
+.custom-qty > small {
+  font-size: 0.8rem;
+}
+
+.review-table {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+.review-table td.strong {
+  font-weight: 600;
+}
+
+/* ---------- Telefon ---------- */
+
+@media (max-width: 640px) {
+  /* 16px pe câmpuri ca iOS să nu mărească pagina la atingere */
+  input[type='text'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='email'],
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .page-intro {
+    padding: 14px 0 10px;
+  }
+
+  .page-intro p {
+    font-size: 0.9rem;
+  }
+
+  .wizard-body {
+    padding-bottom: 24px;
+  }
+
+  .step-title-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .unit-toggle {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+  }
+
+  .type-tabs button {
+    padding: 10px 12px;
+  }
+
+  .type-tab-label {
+    font-size: 0.92rem;
+  }
+
+  /* rând produs: nume sus, cantitate + total jos */
+  .product-row {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 8px 12px;
+    padding: 12px;
+  }
+
+  .product-info {
+    grid-column: 1 / -1;
+  }
+
+  .qty {
+    align-items: flex-start;
+  }
+
+  .product-total {
+    grid-column: 2;
+    align-self: start;
+    padding-top: 8px;
+  }
+
+  .qty-stepper button {
+    width: 42px;
+  }
+
+  .grid-3 {
+    gap: 8px;
+  }
+
+  .grid-3 .field small {
+    font-size: 0.72rem;
+  }
+
+  .input-suffix input {
+    padding-right: 34px;
+  }
+
+  .input-suffix > span {
+    right: 8px;
+    font-size: 0.78rem;
+  }
+
+  .checks {
+    gap: 8px 14px;
+  }
+
+  .calendar-wrap {
+    justify-content: center;
+  }
+
+  .calendar-side {
+    min-width: 0;
+    width: 100%;
+  }
+
+  /* tabelul de confirmare devine carduri */
+  .review-table,
+  .review-table tbody,
+  .review-table tr,
+  .review-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .review-table {
+    border: none;
+  }
+
+  .review-table thead {
+    display: none;
+  }
+
+  .review-table tr {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+
+  .review-table td {
+    border: none;
+    padding: 2px 0;
+  }
+
+  .review-table td.name {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .review-table td.num {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .review-table td.num::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .step .totals {
+    max-width: none;
+  }
+
+  .actions {
+    gap: 8px;
+  }
+
+  .actions-total strong {
+    font-size: 1.05rem;
+  }
+
+  .done {
+    padding: 32px 16px;
+  }
+
+  .done .actions .btn {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .calendar-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .calendar-wrap .rdp-root {
+    align-self: center;
+  }
+
+  .calendar-side {
+    flex: none;
+  }
+
+  .checks-label {
+    width: 100%;
+  }
+}
+
+.custom-qty .qty {
+  align-items: center;
 }

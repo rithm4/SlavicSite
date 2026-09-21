@@ -11,6 +11,8 @@ export interface CustomItem {
 
 export type ClientType = 'pf' | 'pj'
 export type DeliveryMethod = 'pickup' | 'delivery'
+/** În ce unitate introduce clientul cantitățile. Intern, cantitatea e mereu în bucăți. */
+export type QtyUnit = 'pallet' | 'piece'
 
 export interface ClientInfo {
   type: ClientType
@@ -28,6 +30,7 @@ export interface OrderDraft {
   /** productId -> cantitate */
   standard: Record<string, number>
   custom: CustomItem[]
+  qtyUnit: QtyUnit
   deliveryMethod: DeliveryMethod
   deliveryAddress: string
   /** Data aleasă, YYYY-MM-DD. */
@@ -41,6 +44,8 @@ export interface QuoteLine {
   unit: string
   qty: number
   unitPrice: number
+  /** Paleți ocupați (poate fi fracționar). */
+  pallets: number
   total: number
 }
 
@@ -54,6 +59,8 @@ export interface Quote {
   vat: number
   total: number
   totalPieces: number
+  /** Paleți necesari la transport (rotunjit în sus). */
+  totalPallets: number
 }
 
 export interface SavedOrder {

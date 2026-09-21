@@ -1,10 +1,16 @@
 import { currency, vatRate } from '../config/company'
-import { formatMoney } from '../lib/format'
+import { approxPallets, formatMoney, formatPallets, formatQty } from '../lib/format'
 import type { Quote } from '../lib/types'
 
 export function QuoteTotals({ quote }: { quote: Quote }) {
   return (
     <dl className="totals">
+      {quote.totalPallets > 0 && (
+        <div>
+          <dt>Volum estimat</dt>
+          <dd>{formatPallets(quote.totalPallets)}</dd>
+        </div>
+      )}
       <div>
         <dt>Total produse</dt>
         <dd>{formatMoney(quote.productsSubtotal)}</dd>
@@ -48,7 +54,7 @@ export function QuoteSummary({ quote }: { quote: Quote }) {
               <span>
                 {l.description}
                 <small className="muted">
-                  {l.qty} {l.unit} · {l.details}
+                  {formatQty(l.qty)} {l.unit} ({approxPallets(l.pallets)}) · {l.details}
                 </small>
               </span>
               <span>{formatMoney(l.total)}</span>

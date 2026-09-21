@@ -1,21 +1,22 @@
 import { customRules, finishes, woodTypes } from '../config/catalog'
 import { currency } from '../config/company'
-import { formatMoney } from '../lib/format'
-import { customUnitPrice, round2, validateCustomItem } from '../lib/pricing'
-import type { CustomItem } from '../lib/types'
+import { formatMoney, formatQty } from '../lib/format'
+import { customPiecesPerPallet, customUnitPrice, round2, validateCustomItem } from '../lib/pricing'
+import type { CustomItem, QtyUnit } from '../lib/types'
+import { QtyInput } from './QtyInput'
 import type { StepProps } from './stepProps'
 
-type NumericKey = 'lengthMm' | 'widthMm' | 'thicknessMm' | 'qty'
+type NumericKey = 'lengthMm' | 'widthMm' | 'thicknessMm'
 
-function newItem(): CustomItem {
+function newItem(unit: QtyUnit): CustomItem {
+  const dims = { lengthMm: 400, widthMm: 100, thicknessMm: 10 }
   return {
     id: crypto.randomUUID(),
     name: '',
     woodId: woodTypes[0].id,
-    lengthMm: 400,
-    widthMm: 100,
-    thicknessMm: 10,
-    qty: customRules.minQty,
+    ...dims,
+    // În modul paleți pornim de la un palet întreg, altfel de la cantitatea minimă.
+    qty: unit === 'pallet' ? customPiecesPerPallet(dims) : customRules.minQty,
     finishIds: [],
   }
 }
@@ -66,6 +67,7 @@ export function CustomItems({ draft, update }: StepProps) {
       {draft.custom.map((item, index) => {
         const error = validateCustomItem(item)
         const unitPrice = error ? null : customUnitPrice(item)
+        const perPallet = customPiecesPerPallet(item)
         return (
           <div className="custom-card" key={item.id}>
             <div className="custom-card-head">
@@ -75,8 +77,8 @@ export function CustomItems({ draft, update }: StepProps) {
               </button>
             </div>
 
-            <div className="grid grid-4">
-              <label className="field span-2">
+            <div className="grid">
+              <label className="field">
                 <span>Denumire (opțional)</span>
                 <input
                   type="text"
@@ -95,10 +97,25 @@ export function CustomItems({ draft, update }: StepProps) {
                   ))}
                 </select>
               </label>
-              {numberField(item, 'qty', 'Cantitate', 'buc')}
+            </div>
+            <div className="grid grid-3">
               {numberField(item, 'lengthMm', 'Lungime', 'mm', limitsMm.length)}
               {numberField(item, 'widthMm', 'Lățime', 'mm', limitsMm.width)}
               {numberField(item, 'thicknessMm', 'Grosime', 'mm', limitsMm.thickness)}
+            </div>
+
+            <div className="custom-qty">
+              <span className="field-label">Cantitate</span>
+              <QtyInput
+                qty={item.qty}
+                piecesPerPallet={perPallet}
+                unit={draft.qtyUnit}
+                pieceStep={customRules.minQty}
+                pieceLabel="buc"
+                label={`element ${index + 1}`}
+                onChange={(qty) => patchItem(item.id, { qty })}
+              />
+              <small className="muted">≈ {formatQty(perPallet)} buc/palet</small>
             </div>
 
             <div className="checks">
@@ -117,7 +134,7 @@ export function CustomItems({ draft, update }: StepProps) {
               ) : (
                 <>
                   <span className="muted">
-                    {formatMoney(unitPrice!)} {currency}/buc × {item.qty}
+                    {formatMoney(unitPrice!)} {currency}/buc × {formatQty(item.qty)} buc
                   </span>
                   <strong>
                     {formatMoney(round2(unitPrice! * item.qty))} {currency}
@@ -129,7 +146,7 @@ export function CustomItems({ draft, update }: StepProps) {
         )
       })}
 
-      <button type="button" className="btn-add" onClick={() => update({ custom: [...draft.custom, newItem()] })}>
+      <button type="button" className="btn-add" onClick={() => update({ custom: [...draft.custom, newItem(draft.qtyUnit)] })}>
         + Adaugă element la dimensiunile dvs.
       </button>
     </>

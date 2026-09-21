@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { standardProducts } from '../config/catalog'
 import { currency } from '../config/company'
-import { formatMoney } from '../lib/format'
+import { formatMoney, formatQty } from '../lib/format'
+import type { QtyUnit } from '../lib/types'
 import { CustomItems } from './CustomItems'
+import { QtyInput } from './QtyInput'
 import type { StepProps } from './stepProps'
 
 type Tab = 'standard' | 'custom'
@@ -21,13 +23,35 @@ export function ProductsStep(props: StepProps) {
   }
 
   const tabs: [Tab, string, string, number][] = [
-    ['standard', 'Din catalog', 'Dimensiuni standard, gata de comandat', standardCount],
-    ['custom', 'La dimensiunile mele', 'Introduceți mărimile, prețul se calculează automat', customCount],
+    ['standard', 'Din catalog', 'Dimensiuni standard', standardCount],
+    ['custom', 'Pe dimensiuni', 'Mărimile dvs., preț automat', customCount],
   ]
 
   return (
     <div className="step">
-      <h2 className="step-title">Ce doriți să comandați?</h2>
+      <div className="step-title-row">
+        <h2 className="step-title">Ce doriți să comandați?</h2>
+        <div className="unit-toggle" role="radiogroup" aria-label="Cantitate în">
+          <span className="muted">Cantitate în:</span>
+          {(
+            [
+              ['pallet', 'Paleți'],
+              ['piece', 'Bucăți'],
+            ] as [QtyUnit, string][]
+          ).map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              role="radio"
+              aria-checked={draft.qtyUnit === value}
+              className={draft.qtyUnit === value ? 'is-active' : ''}
+              onClick={() => update({ qtyUnit: value })}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div className="type-tabs" role="tablist">
         {tabs.map(([value, label, note, count]) => (
@@ -56,39 +80,30 @@ export function ProductsStep(props: StepProps) {
             return (
               <li className={`product-row${qty > 0 ? ' is-selected' : ''}`} key={p.id}>
                 <div className="product-info">
-                  <strong>{p.name}</strong>
+                  <strong>
+                    {p.name} <span className="product-size">{p.size} mm</span>
+                  </strong>
                   <span className="muted">
-                    {p.size} mm · {formatMoney(p.price)} {currency}/{p.unit} · min. {p.minQty}
+                    {formatMoney(p.price)} {currency}/{p.unit} · {formatQty(p.piecesPerPallet)} {p.unit}/palet
                   </span>
                 </div>
-                <div className="qty-stepper">
-                  <button
-                    type="button"
-                    aria-label={`Scade ${p.name} ${p.size}`}
-                    disabled={qty === 0}
-                    onClick={() => setQty(p.id, qty - p.minQty < p.minQty ? 0 : qty - p.minQty)}
-                  >
-                    −
-                  </button>
-                  <input
-                    type="number"
-                    min={0}
-                    inputMode="numeric"
-                    placeholder="0"
-                    aria-label={`Cantitate ${p.name} ${p.size}`}
-                    value={qty || ''}
-                    aria-invalid={tooLow}
-                    onChange={(e) => setQty(p.id, Math.max(0, Math.floor(Number(e.target.value) || 0)))}
-                  />
-                  <button
-                    type="button"
-                    aria-label={`Crește ${p.name} ${p.size}`}
-                    onClick={() => setQty(p.id, qty < p.minQty ? p.minQty : qty + p.minQty)}
-                  >
-                    +
-                  </button>
+                <QtyInput
+                  qty={qty}
+                  piecesPerPallet={p.piecesPerPallet}
+                  unit={draft.qtyUnit}
+                  pieceStep={p.minQty}
+                  pieceLabel={p.unit}
+                  label={`${p.name} ${p.size}`}
+                  invalid={tooLow}
+                  onChange={(pieces) => setQty(p.id, pieces)}
+                />
+                <div className="product-total">
+                  {qty > 0 ? (
+                    `${formatMoney(p.price * qty)} ${currency}`
+                  ) : (
+                    <span className="muted">—</span>
+                  )}
                 </div>
-                <div className="product-total">{qty > 0 ? `${formatMoney(p.price * qty)} ${currency}` : ''}</div>
                 {tooLow && (
                   <p className="field-error">
                     Cantitatea minimă este {p.minQty} {p.unit}.
@@ -104,9 +119,7 @@ export function ProductsStep(props: StepProps) {
         </div>
       )}
 
-      <p className="tab-note muted">
-        Puteți combina: produsele alese în ambele secțiuni intră în aceeași comandă.
-      </p>
+      <p className="tab-note muted">Puteți combina produse din catalog și la comandă în aceeași comandă.</p>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { currency } from '../config/company'
-import { formatMoney } from '../lib/format'
+import { formatMoney, formatPallets } from '../lib/format'
 import { earliestDate, latestDate, leadDaysFor } from '../lib/dates'
 import { orderStore } from '../lib/orderStore'
 import { computeQuote } from '../lib/pricing'
@@ -12,12 +12,13 @@ import { ReviewStep } from './ReviewStep'
 import { ScheduleStep } from './ScheduleStep'
 import { ProductsStep } from './ProductsStep'
 
-const STEPS = ['Produse', 'Livrare și dată', 'Datele dvs.', 'Confirmare']
+const STEPS = ['Produse', 'Livrare și dată', 'Datele firmei', 'Confirmare']
 const DRAFT_KEY = 'slavic.draft'
 
 const emptyDraft = (): OrderDraft => ({
   standard: {},
   custom: [],
+  qtyUnit: 'pallet',
   deliveryMethod: 'pickup',
   deliveryAddress: '',
   date: null,
@@ -27,7 +28,11 @@ const emptyDraft = (): OrderDraft => ({
 function loadDraft(): OrderDraft {
   try {
     const saved = localStorage.getItem(DRAFT_KEY)
-    if (saved) return { ...emptyDraft(), ...(JSON.parse(saved) as OrderDraft) }
+    if (saved) {
+      const draft = { ...emptyDraft(), ...(JSON.parse(saved) as OrderDraft) }
+      // Comenzile se fac doar de firme (persoane juridice).
+      return { ...draft, client: { ...draft.client, type: 'pj' } }
+    }
   } catch {
     // ciorna salvată lipsește sau e coruptă — pornim de la zero
   }
@@ -183,14 +188,16 @@ export function OrderWizard() {
               </button>
             )}
             <div className="actions-total">
-              <span className="muted">Total cu TVA</span>
+              <span className="muted">
+                {quote.totalPallets > 0 && `${formatPallets(quote.totalPallets)} · `}Total cu TVA
+              </span>
               <strong>
                 {formatMoney(quote.total)} {currency}
               </strong>
             </div>
             {isLast ? (
               <button type="button" className="btn" onClick={generate} disabled={status === 'working'}>
-                {status === 'working' ? 'Se generează…' : 'Generează contul de plată (PDF)'}
+                {status === 'working' ? 'Se generează…' : 'Generează contul de plată'}
               </button>
             ) : (
               <button type="button" className="btn" onClick={() => goTo(step + 1)}>

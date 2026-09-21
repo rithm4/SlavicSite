@@ -8,18 +8,20 @@ export interface StandardProduct {
   size: string
   unit: string
   price: number
+  /** Câte bucăți încap pe un palet. */
+  piecesPerPallet: number
   /** Comanda minimă, în unități. */
   minQty: number
 }
 
 export const standardProducts: StandardProduct[] = [
-  { id: 'lat-400', name: 'Scândură laterală', size: '400 × 100 × 10', unit: 'buc', price: 0.23, minQty: 50 },
-  { id: 'lat-500', name: 'Scândură laterală', size: '500 × 100 × 10', unit: 'buc', price: 0.27, minQty: 50 },
-  { id: 'cap-300', name: 'Scândură capăt', size: '300 × 100 × 15', unit: 'buc', price: 0.21, minQty: 50 },
-  { id: 'fund-400', name: 'Fund placaj', size: '400 × 300 × 4', unit: 'buc', price: 0.49, minQty: 20 },
-  { id: 'sipca-20', name: 'Șipcă de colț', size: '250 × 20 × 20', unit: 'buc', price: 0.08, minQty: 100 },
-  { id: 'maner', name: 'Scândură cu mâner decupat', size: '300 × 120 × 15', unit: 'buc', price: 0.35, minQty: 20 },
-  { id: 'set-403020', name: 'Set ladă completă (nemontată)', size: '400 × 300 × 200', unit: 'set', price: 2.9, minQty: 10 },
+  { id: 'lat-400', name: 'Scândură laterală', size: '400 × 100 × 10', unit: 'buc', price: 0.23, minQty: 50, piecesPerPallet: 3000 },
+  { id: 'lat-500', name: 'Scândură laterală', size: '500 × 100 × 10', unit: 'buc', price: 0.27, minQty: 50, piecesPerPallet: 2400 },
+  { id: 'cap-300', name: 'Scândură capăt', size: '300 × 100 × 15', unit: 'buc', price: 0.21, minQty: 50, piecesPerPallet: 2000 },
+  { id: 'fund-400', name: 'Fund placaj', size: '400 × 300 × 4', unit: 'buc', price: 0.49, minQty: 20, piecesPerPallet: 1500 },
+  { id: 'sipca-20', name: 'Șipcă de colț', size: '250 × 20 × 20', unit: 'buc', price: 0.08, minQty: 100, piecesPerPallet: 5000 },
+  { id: 'maner', name: 'Scândură cu mâner decupat', size: '300 × 120 × 15', unit: 'buc', price: 0.35, minQty: 20, piecesPerPallet: 1500 },
+  { id: 'set-403020', name: 'Set ladă completă (nemontată)', size: '400 × 300 × 200', unit: 'set', price: 2.9, minQty: 10, piecesPerPallet: 60 },
 ]
 
 export interface WoodType {
@@ -72,4 +74,16 @@ export const deliveryRules = {
   fee: 18,
   /** Peste această valoare (produse, fără TVA), livrarea e gratuită. */
   freeFrom: 750,
+}
+
+/**
+ * Paletul folosit pentru estimarea numărului de paleți la elementele personalizate
+ * (EUR 1200 × 800, încărcat până la înălțimea dată).
+ */
+export const palletRules = {
+  lengthMm: 1200,
+  widthMm: 800,
+  loadHeightMm: 1000,
+  /** Cât din volum e efectiv ocupat de lemn (stivuire, distanțiere). */
+  fillFactor: 0.85,
 }

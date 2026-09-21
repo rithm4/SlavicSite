@@ -2,6 +2,7 @@ import {
   customRules,
   deliveryRules,
   finishes,
+  palletRules,
   standardProducts,
   volumeDiscounts,
   woodTypes,
@@ -57,6 +58,7 @@ export function computeQuote(draft: OrderDraft): Quote {
       unit: product.unit,
       qty,
       unitPrice: product.price,
+      pallets: qty / product.piecesPerPallet,
       total: round2(product.price * qty),
     })
   }
@@ -77,6 +79,7 @@ export function computeQuote(draft: OrderDraft): Quote {
       unit: 'buc',
       qty: item.qty,
       unitPrice,
+      pallets: item.qty / customPiecesPerPallet(item),
       total: round2(unitPrice * item.qty),
     })
   }
@@ -101,5 +104,14 @@ export function computeQuote(draft: OrderDraft): Quote {
     vat,
     total: round2(netTotal + vat),
     totalPieces,
+    totalPallets: Math.ceil(round2(lines.reduce((s, l) => s + l.pallets, 0))),
   }
+}
+
+/** Estimare: câte bucăți de dimensiunile date încap pe un palet. */
+export function customPiecesPerPallet(item: Pick<CustomItem, 'lengthMm' | 'widthMm' | 'thicknessMm'>): number {
+  const pieceVolume = item.lengthMm * item.widthMm * item.thicknessMm
+  if (pieceVolume <= 0) return 1
+  const { lengthMm, widthMm, loadHeightMm, fillFactor } = palletRules
+  return Math.max(1, Math.floor((lengthMm * widthMm * loadHeightMm * fillFactor) / pieceVolume))
 }

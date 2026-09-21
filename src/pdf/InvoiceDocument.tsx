@@ -2,7 +2,7 @@ import { Document, Font, Page, StyleSheet, Text, View, pdf } from '@react-pdf/re
 import { addDays } from 'date-fns'
 import { company, currency, invoiceValidityDays, vatRate } from '../config/company'
 import { formatDateRo, fromIsoDate } from '../lib/dates'
-import { amountInWords, formatMoney, formatQty } from '../lib/format'
+import { amountInWords, formatMoney, formatPallets, formatQty } from '../lib/format'
 import type { SavedOrder } from '../lib/types'
 
 // Fontul implicit din PDF nu are diacritice (ș, ț, ă) — folosim Roboto.
@@ -33,10 +33,11 @@ const s = StyleSheet.create({
   row: { flexDirection: 'row', borderBottom: `0.5pt solid ${LINE}`, paddingVertical: 4 },
   cNr: { width: 22, paddingHorizontal: 4 },
   cName: { flex: 1, paddingHorizontal: 4 },
-  cUm: { width: 34, paddingHorizontal: 4, textAlign: 'center' },
-  cQty: { width: 50, paddingHorizontal: 4, textAlign: 'right' },
-  cPrice: { width: 64, paddingHorizontal: 4, textAlign: 'right' },
-  cTotal: { width: 74, paddingHorizontal: 4, textAlign: 'right' },
+  cUm: { width: 30, paddingHorizontal: 4, textAlign: 'center' },
+  cQty: { width: 58, paddingHorizontal: 4, textAlign: 'right' },
+  cPal: { width: 44, paddingHorizontal: 4, textAlign: 'right' },
+  cPrice: { width: 58, paddingHorizontal: 4, textAlign: 'right' },
+  cTotal: { width: 70, paddingHorizontal: 4, textAlign: 'right' },
   totals: { marginLeft: 'auto', width: 230, marginTop: 8 },
   totalRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 2 },
   grand: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 4, paddingTop: 5, borderTop: `1pt solid ${ACCENT}`, fontSize: 11, fontWeight: 'bold' },
@@ -48,6 +49,9 @@ const s = StyleSheet.create({
   sign: { width: 200, borderTop: `0.5pt solid #999`, paddingTop: 3, color: MUTED, fontSize: 8 },
   note: { position: 'absolute', bottom: 24, left: 36, right: 36, fontSize: 7.5, color: MUTED, textAlign: 'center' },
 })
+
+const palletCount = new Intl.NumberFormat('ro-MD', { maximumFractionDigits: 1 })
+const formatPalletCount = (n: number) => (n > 0 && n < 0.1 ? '<0,1' : palletCount.format(n))
 
 function InvoiceDocument({ order }: { order: SavedOrder }) {
   const { draft, quote } = order
@@ -98,13 +102,17 @@ function InvoiceDocument({ order }: { order: SavedOrder }) {
           </View>
         </View>
 
+        <Text style={[s.muted, { fontSize: 7.5, marginBottom: 3 }]}>
+          Prețuri și sume fără TVA, în {currency}. Numărul de paleți este estimativ.
+        </Text>
         <View style={s.tableHead} fixed>
           <Text style={s.cNr}>Nr.</Text>
           <Text style={s.cName}>Denumire</Text>
           <Text style={s.cUm}>U.M.</Text>
           <Text style={s.cQty}>Cant.</Text>
-          <Text style={s.cPrice}>Preț fără TVA</Text>
-          <Text style={s.cTotal}>Suma fără TVA</Text>
+          <Text style={s.cPal}>Paleți</Text>
+          <Text style={s.cPrice}>Preț</Text>
+          <Text style={s.cTotal}>Suma</Text>
         </View>
         {quote.lines.map((line, i) => (
           <View style={s.row} key={i} wrap={false}>
@@ -115,12 +123,17 @@ function InvoiceDocument({ order }: { order: SavedOrder }) {
             </View>
             <Text style={s.cUm}>{line.unit}</Text>
             <Text style={s.cQty}>{formatQty(line.qty)}</Text>
+            <Text style={s.cPal}>{formatPalletCount(line.pallets)}</Text>
             <Text style={s.cPrice}>{formatMoney(line.unitPrice)}</Text>
             <Text style={s.cTotal}>{formatMoney(line.total)}</Text>
           </View>
         ))}
 
         <View style={s.totals} wrap={false}>
+          <View style={s.totalRow}>
+            <Text>Volum estimat</Text>
+            <Text>≈ {formatPallets(quote.totalPallets)}</Text>
+          </View>
           <View style={s.totalRow}>
             <Text>Total produse</Text>
             <Text>{formatMoney(quote.productsSubtotal)}</Text>
