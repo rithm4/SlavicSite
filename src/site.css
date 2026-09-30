@@ -157,9 +157,27 @@ a.btn-icon,
 }
 
 .brand-mark {
-  width: 32px;
-  height: 32px;
+  display: grid;
+  place-items: center;
   flex: none;
+}
+
+.brand-mark img {
+  display: block;
+  width: auto;
+  height: 34px;
+}
+
+/* pe fundal închis: semnul pe un pătrat alb */
+.brand.is-light .brand-mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.brand.is-light .brand-mark img {
+  height: 28px;
 }
 
 .brand-name {
