@@ -1,0 +1,1821 @@
+/* ---------- Cont: antet ---------- */
+
+.site-nav .header-account {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text);
+}
+
+@media (min-width: 921px) and (max-width: 1180px) {
+  .site-nav .header-phone {
+    display: none;
+  }
+}
+
+/* ---------- Pagini de lucru: antet scund, conținutul aproape de sus ---------- */
+
+.page-hero.is-compact {
+  padding-block: 20px 0;
+}
+
+.page-hero.is-compact .breadcrumb {
+  margin-bottom: 10px;
+}
+
+.page-hero.is-compact h1 {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  letter-spacing: -0.035em;
+}
+
+.work-band,
+.page-hero + .work-band {
+  padding-top: 16px;
+}
+
+.page-hero.is-compact p {
+  margin-top: 6px;
+  font-size: 1rem;
+}
+
+.access-note {
+  max-width: 640px;
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--sand);
+}
+
+.access-note p {
+  margin: 0;
+}
+
+.access-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.admin-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+}
+
+/* ---------- Mesaje ---------- */
+
+.notice {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
+
+.notice-ok {
+  background: #e7f3eb;
+  color: #17593a;
+}
+
+.notice-error {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.demo-note {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* ---------- Intrare și cont nou ---------- */
+
+.auth {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.auth-single {
+  grid-template-columns: minmax(0, 560px);
+}
+
+.auth-card {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: var(--sand);
+}
+
+.auth-narrow {
+  max-width: 520px;
+}
+
+.auth-tabs {
+  display: inline-flex;
+  justify-self: start;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--sand-2);
+}
+
+.auth-tabs button {
+  padding: 9px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.auth-tabs button[aria-pressed='true'] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.auth-head h2 {
+  margin-bottom: 4px;
+  font-size: 1.5rem;
+}
+
+.auth-head p {
+  margin: 0;
+}
+
+.auth-agree {
+  align-items: flex-start;
+  font-size: 0.92rem;
+}
+
+.auth-agree a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.auth-aside {
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.auth-aside h2 {
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+}
+
+.auth-aside dl {
+  margin: 0;
+}
+
+.auth-aside dl > div {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.auth-aside dl > div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.auth-aside dt {
+  font-weight: 600;
+  font-family: var(--display);
+}
+
+.auth-aside dd {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ---------- Cabinet ---------- */
+
+.cab {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.cab-nav {
+  position: sticky;
+  top: 88px;
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: var(--sand);
+}
+
+.cab-who {
+  padding: 8px 10px 12px;
+  border-bottom: 1px solid var(--sand-2);
+  min-width: 0;
+}
+
+.cab-who strong {
+  display: block;
+  font-family: var(--display);
+  line-height: 1.25;
+}
+
+.cab-who span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.cab-nav nav {
+  display: grid;
+  gap: 2px;
+}
+
+.cab-nav nav a,
+.cab-logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.cab-nav nav a:hover,
+.cab-logout:hover {
+  color: var(--text);
+}
+
+.cab-nav nav a[aria-current='page'] {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.cab-logout {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.cab-main {
+  min-width: 0;
+}
+
+.cab-section {
+  display: grid;
+  gap: 16px;
+}
+
+.cab-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.cab-head h2 {
+  margin: 0 0 4px;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+.cab-head p {
+  margin: 0;
+}
+
+.cab-head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cab-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: #fdf1dc;
+  color: var(--on-accent-2-muted);
+  font-weight: 500;
+}
+
+.cab-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.cab-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-height: 136px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--sand);
+}
+
+.cab-stat > span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.cab-stat strong {
+  margin-top: auto;
+  font-family: var(--display);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cab-stat strong small {
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.cab-stat .cab-stat-mid {
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+.cab-block {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+.cab-block h3,
+.cab-form h3 {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.cab-block-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.cab-block-head > a {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.cab-form {
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--sand);
+}
+
+.cab-form .notice {
+  margin-top: 16px;
+}
+
+.cab-form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.cab-form select,
+.status-form select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* ---------- Statusul comenzii ---------- */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-noua {
+  background: #fdf1dc;
+  color: #8a5a10;
+}
+
+.status-achitata {
+  background: #e7f3eb;
+  color: #17593a;
+}
+
+.status-productie {
+  background: #e9e6df;
+  color: var(--text);
+}
+
+.status-gata {
+  background: #17593a;
+  color: #fff;
+}
+
+.status-livrata {
+  background: #f0efeb;
+  color: var(--muted);
+}
+
+.status-anulata {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* ---------- Liste de comenzi ---------- */
+
+.order-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.order-rows a {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+
+.order-rows li:first-child a {
+  border-top: 0;
+}
+
+.order-rows .status {
+  justify-self: start;
+}
+
+.order-rows-total,
+.order-card-total {
+  font-family: var(--display);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.order-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.order-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  transition: border-color 0.2s ease;
+  /* deschisă dintr-un link: titlul nu intră sub antetul fix */
+  scroll-margin-top: 96px;
+}
+
+.order-card.is-open {
+  border-color: var(--border-strong);
+}
+
+.order-card-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 18px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-order-head {
+  grid-template-columns: minmax(150px, auto) minmax(0, 1fr) auto auto auto;
+}
+
+.order-card-id strong,
+.admin-order-client {
+  display: block;
+  font-weight: 600;
+}
+
+.order-card-id .muted,
+.admin-order-client .muted {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.order-card-chevron {
+  color: var(--muted);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.order-card.is-open .order-card-chevron {
+  transform: rotate(180deg);
+}
+
+.order-card-body {
+  display: grid;
+  gap: 18px;
+  padding: 0 18px 18px;
+}
+
+.order-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.order-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'lines track'
+    'facts track';
+  gap: 16px 28px;
+  align-items: start;
+}
+
+.order-details .table-scroll {
+  grid-area: lines;
+}
+
+.order-details .order-facts {
+  grid-area: facts;
+}
+
+.order-track {
+  grid-area: track;
+}
+
+.order-lines {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+}
+
+.order-lines th {
+  padding: 0 8px 8px 0;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.order-lines td {
+  padding: 9px 8px 9px 0;
+  border-top: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.order-lines td small {
+  display: block;
+  color: var(--muted);
+}
+
+.order-lines tfoot td {
+  font-family: var(--display);
+  font-weight: 600;
+}
+
+/* reducerea și TVA-ul: rânduri mai discrete, deasupra totalului */
+.order-lines tfoot tr.is-sub td {
+  padding-block: 6px;
+  font-family: var(--sans);
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.order-lines tfoot tr.is-sub + tr:not(.is-sub) td {
+  border-top-color: var(--border-strong);
+}
+
+.order-lines .num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.order-facts {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.order-facts dt {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.order-facts dd {
+  margin: 0;
+}
+
+.admin-client {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px 20px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--sand);
+}
+
+.admin-client > div {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-width: 0;
+  font-size: 0.93rem;
+}
+
+.admin-client > div > .muted:first-child {
+  font-size: 0.82rem;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  overflow-wrap: anywhere;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.admin-when {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.due.is-overdue {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* Drumul comenzii: un punct pentru fiecare status */
+.order-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.order-track li {
+  position: relative;
+  padding: 0 0 16px 26px;
+  color: var(--muted);
+}
+
+.order-track li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sand-2);
+}
+
+.order-track li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 20px;
+  bottom: 0;
+  width: 2px;
+  background: var(--sand-2);
+}
+
+.order-track li.is-done::before,
+.order-track li.is-done::after {
+  background: var(--text);
+}
+
+.order-track li.is-current::before {
+  background: var(--accent-2);
+  box-shadow: 0 0 0 4px #fdf1dc;
+}
+
+.order-track li.track-anulata.is-current::before {
+  background: var(--danger);
+  box-shadow: 0 0 0 4px var(--danger-soft);
+}
+
+.order-track strong {
+  display: block;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.order-track li:not(.is-done, .is-current) strong {
+  color: var(--muted);
+}
+
+.order-track span {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.order-track em {
+  display: block;
+  margin-top: 2px;
+  font-style: normal;
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+/* ---------- Adrese și documente ---------- */
+
+.address-list,
+.doc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.address-list {
+  display: grid;
+  gap: 10px;
+}
+
+.address-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.address-list p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+.address-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--sand);
+  font-size: 0.78rem;
+  font-weight: 500;
+  vertical-align: 2px;
+}
+
+.address-form .check {
+  margin-top: 12px;
+}
+
+.doc-list li {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+
+.doc-list li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.doc-kind {
+  justify-self: start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--sand);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.doc-name strong,
+.doc-name span {
+  display: block;
+}
+
+.doc-name span {
+  font-size: 0.85rem;
+}
+
+.doc-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.icon-btn:hover:not(:disabled) {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ---------- Formularul de comandă: adrese salvate, final ---------- */
+
+/* adresele salvate folosesc stilul opțiunilor (.segmented), doar cu mai mult loc pentru text */
+.saved-addresses label small {
+  line-height: 1.4;
+}
+
+.done-account {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 24px;
+  color: var(--muted);
+}
+
+.done-account a {
+  color: var(--text);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Panou admin ---------- */
+
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.admin-tabs a,
+.chips button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.93rem;
+  cursor: pointer;
+}
+
+.admin-tabs a span,
+.chips button span {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-tabs a[aria-current='page'],
+.chips button[aria-pressed='true'] {
+  border-color: var(--dark);
+  background: var(--dark);
+  color: #fff;
+}
+
+.admin-tabs a[aria-current='page'] span,
+.chips button[aria-pressed='true'] span {
+  color: var(--on-dark-muted);
+}
+
+.admin-section {
+  display: grid;
+  gap: 16px;
+}
+
+.admin-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chips button {
+  padding: 7px 12px;
+  font-size: 0.88rem;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 260px;
+  padding: 0 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+/* focusul se vede pe toată „pastila”, nu doar pe câmp */
+.search:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--ring);
+}
+
+.search input:focus {
+  box-shadow: none;
+}
+
+.status-form {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr) auto auto;
+  align-items: end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+}
+
+.admin-table th {
+  padding: 0 12px 10px 0;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.admin-table td {
+  padding: 12px 12px 12px 0;
+  border-top: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.admin-table small {
+  display: block;
+  color: var(--muted);
+}
+
+.admin-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Panou admin: bara de unelte, file cu alertă ---------- */
+
+.admin-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.admin-tabs a span.is-warn {
+  min-width: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent-2);
+  color: var(--on-accent-2);
+  text-align: center;
+  font-weight: 600;
+}
+
+.admin-tabs a[aria-current='page'] span.is-warn {
+  color: var(--on-accent-2);
+}
+
+.count-pill {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #fdf1dc;
+  color: #8a5a10;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+a.cab-stat {
+  transition: background-color 0.2s ease;
+}
+
+a.cab-stat:hover {
+  background: var(--sand-2);
+}
+
+.cab-stat > small {
+  font-size: 0.85rem;
+}
+
+/* ---------- Livrare / ridicare ---------- */
+
+.kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.kind-delivery {
+  background: #e8eef6;
+  color: #24466e;
+}
+
+.kind-pickup {
+  background: var(--sand-2);
+  color: var(--text);
+}
+
+/* ---------- Acțiuni rapide: mută data, anulează ---------- */
+
+.quick-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.quick-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.quick-buttons .btn {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+.btn.danger-btn {
+  color: var(--danger);
+}
+
+.btn.danger-btn:hover:not(:disabled) {
+  border-color: var(--danger);
+}
+
+.btn.danger-solid {
+  border-color: var(--danger);
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn.danger-solid:hover:not(:disabled) {
+  border-color: #962016;
+  background: #962016;
+}
+
+.quick-form {
+  display: grid;
+  grid-template-columns: minmax(0, 180px) minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 10px 12px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--sand);
+}
+
+.quick-form.is-danger {
+  grid-template-columns: 1fr;
+  background: var(--danger-soft);
+}
+
+.quick-form p {
+  margin: 0;
+}
+
+.quick-form input[type='date'] {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.day-close .quick-form {
+  grid-template-columns: 1fr;
+}
+
+/* ---------- Notă internă ---------- */
+
+.internal-note {
+  padding: 12px 14px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 14px;
+}
+
+.internal-note > span:first-child small {
+  margin-left: 6px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.internal-note textarea {
+  background: var(--surface);
+}
+
+.internal-note-foot {
+  display: flex;
+  gap: 12px;
+  min-height: 0;
+}
+
+/* ---------- De rezolvat ---------- */
+
+.alert-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.alert-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fdf1dc;
+}
+
+.alert-list li svg {
+  margin-top: 2px;
+  color: #b7791f;
+}
+
+.alert-list li.alert-overdue {
+  background: var(--danger-soft);
+}
+
+.alert-list li.alert-overdue > svg {
+  color: var(--danger);
+}
+
+.alert-body {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.alert-body p {
+  margin: 0;
+}
+
+.alert-body > .btn-link {
+  justify-self: start;
+}
+
+.alert-body a strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Programul zilelor ---------- */
+
+.agenda {
+  display: grid;
+  gap: 18px;
+}
+
+.agenda-day h4 {
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+
+.agenda-day h4 .muted {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.agenda-day ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.agenda-day li a {
+  display: grid;
+  /* coloane fixe, ca rândurile să se alinieze între ele */
+  grid-template-columns: 96px 118px minmax(0, 1fr) minmax(0, 1.2fr) 80px 124px;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  font-size: 0.93rem;
+}
+
+.agenda-day li a:hover {
+  background: var(--sand);
+}
+
+.agenda-client,
+.agenda-where {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agenda-day .status {
+  justify-self: end;
+}
+
+/* ---------- Calendar ---------- */
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.month {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+.month-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.month-head h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.month-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.month-nav .btn-link {
+  margin-right: 8px;
+}
+
+.month-nav .icon-btn:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--text);
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.month-weekday {
+  padding-bottom: 4px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.month-day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 84px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.month-day:hover {
+  border-color: var(--border-strong);
+}
+
+.month-day.is-other {
+  opacity: 0.4;
+}
+
+.month-day.is-weekend,
+.month-day.is-holiday {
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.month-day.is-closed {
+  background: repeating-linear-gradient(135deg, #f7f6f3 0 6px, #eeebe5 6px 12px);
+}
+
+.month-day.is-past:not(.is-selected) {
+  color: var(--muted);
+}
+
+.month-day.is-full .month-load i.is-on {
+  background: var(--danger);
+}
+
+.month-day.is-today .month-num {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  color: var(--on-accent-2);
+}
+
+.month-day.is-selected {
+  border-color: var(--text);
+  box-shadow: 0 0 0 1px var(--text);
+}
+
+.month-num {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.month-tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.month-counts {
+  display: grid;
+  font-size: 0.76rem;
+  line-height: 1.3;
+}
+
+.month-load {
+  display: flex;
+  gap: 3px;
+  margin-top: auto;
+}
+
+.month-load i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sand-2);
+}
+
+.month-load i.is-on {
+  background: var(--text);
+}
+
+.month-legend {
+  margin: 12px 0 0;
+  font-size: 0.85rem;
+}
+
+.day-sheet {
+  position: sticky;
+  top: 88px;
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--sand);
+}
+
+.day-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.day-head h3 {
+  margin-bottom: 2px;
+  font-size: 1.15rem;
+}
+
+.day-head p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.day-orders {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.day-orders > li {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.day-orders > li.is-cancelled {
+  opacity: 0.6;
+}
+
+.day-order-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.day-order-name:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.day-orders p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.day-order-meta {
+  font-size: 0.85rem !important;
+}
+
+.day-order-contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.day-orders .quick-actions {
+  margin-top: 6px;
+}
+
+.day-orders .quick-form {
+  grid-template-columns: 1fr;
+}
+
+/* Tipărirea foii zilei: doar lista, fără meniuri și butoane */
+@media print {
+  body.print-day * {
+    visibility: hidden;
+  }
+
+  body.print-day .day-sheet,
+  body.print-day .day-sheet * {
+    visibility: visible;
+  }
+
+  body.print-day .day-sheet {
+    position: absolute;
+    inset: 0 0 auto;
+    background: #fff;
+  }
+
+  body.print-day .no-print {
+    display: none;
+  }
+
+  body.print-day .day-orders > li {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+}
+
+/* ---------- Telefon și tabletă ---------- */
+
+@media (max-width: 1100px) {
+  .agenda-day li a {
+    grid-template-columns: 90px 110px minmax(0, 1fr) 124px;
+  }
+
+  .agenda-where,
+  .agenda-day li a > .muted:nth-last-child(2) {
+    display: none;
+  }
+
+  .admin-client {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .day-sheet {
+    position: static;
+  }
+
+  .quick-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .month {
+    padding: 12px;
+  }
+
+  .month-grid {
+    gap: 3px;
+  }
+
+  .month-day {
+    min-height: 58px;
+    padding: 5px;
+    border-radius: 8px;
+  }
+
+  .month-counts,
+  .month-tag {
+    font-size: 0.64rem;
+  }
+
+  /* pe telefon: firma și statusul sus, tipul și numărul dedesubt */
+  .agenda-day li a {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'client client status'
+      'kind num num';
+    row-gap: 6px;
+    padding: 10px 8px;
+  }
+
+  .agenda-client {
+    grid-area: client;
+    font-weight: 500;
+  }
+
+  .agenda-day li a > .kind {
+    grid-area: kind;
+  }
+
+  .agenda-day li a > strong {
+    grid-area: num;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .agenda-day li a > .status {
+    grid-area: status;
+  }
+
+  .admin-tabs {
+    gap: 6px;
+  }
+
+  .admin-tabs a {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .admin-client {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .auth,
+  .cab {
+    grid-template-columns: 1fr;
+  }
+
+  .cab-nav {
+    position: static;
+  }
+
+  /* pe ecrane mici secțiunile se așază pe rânduri, toate la vedere */
+  .cab-nav nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .cab-nav nav a {
+    padding: 8px 12px;
+    background: var(--sand-2);
+    font-size: 0.9rem;
+  }
+
+  .cab-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .order-details {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'lines' 'facts' 'track';
+  }
+
+  .status-form {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .auth-card,
+  .auth-aside,
+  .cab-form {
+    padding: 20px;
+  }
+
+  .cab-stat {
+    min-height: 116px;
+    padding: 16px;
+  }
+
+  .cab-stat strong {
+    font-size: 1.6rem;
+  }
+
+  .order-card-head,
+  .admin-order-head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 12px;
+  }
+
+  .order-card-head .status {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .order-card-chevron {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .order-rows a {
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+  }
+
+  .doc-list li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .doc-kind {
+    grid-column: 1 / -1;
+  }
+
+  .status-form,
+  .admin-client {
+    grid-template-columns: 1fr;
+  }
+
+  .search {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* ---------- Mesaje din pagina de contacte ---------- */
+
+.message-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.message-card {
+  display: grid;
+  gap: 10px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.message-card.is-handled {
+  background: var(--surface-2);
+}
+
+.message-card.is-handled .message-text {
+  color: var(--muted);
+}
+
+.message-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
+
+.message-date {
+  font-size: 0.88rem;
+}
+
+.message-text {
+  margin: 0;
+  max-width: 70ch;
+  white-space: pre-wrap;
+}
+
+.message-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+}
+
+@media (max-width: 480px) {
+  .hide-sm {
+    display: none;
+  }
+
+  .auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-self: stretch;
+  }
+
+  .auth-tabs button {
+    white-space: nowrap;
+  }
+}

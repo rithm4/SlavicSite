@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { DayPicker } from 'react-day-picker'
 import { ro } from 'react-day-picker/locale'
 import 'react-day-picker/style.css'
 import { calendarRules, holidays } from '../config/calendar'
+import type { DeliveryAddress } from '../lib/backend/types'
 import { deliveryRules } from '../config/catalog'
 import { currency } from '../config/company'
 import { formatDateRo, fromIsoDate, isFullyBooked, toIsoDate } from '../lib/dates'
@@ -13,10 +15,30 @@ interface ScheduleStepProps extends StepProps {
   latest: Date
   leadDays: number
   booked: Record<string, number>
+  /** Zilele ocupate nu s-au putut verifica (fără legătură cu serverul). */
+  bookedUnknown?: boolean
+  /** Adresele din contul firmei, dacă e cineva autentificat. */
+  savedAddresses?: DeliveryAddress[]
 }
 
-export function ScheduleStep({ draft, update, quote, showErrors, earliest, latest, leadDays, booked }: ScheduleStepProps) {
+export function ScheduleStep({
+  draft,
+  update,
+  quote,
+  showErrors,
+  earliest,
+  latest,
+  leadDays,
+  booked,
+  bookedUnknown = false,
+  savedAddresses = [],
+}: ScheduleStepProps) {
   const selected = draft.date ? fromIsoDate(draft.date) : undefined
+
+  // adresele din cont se aleg ca opțiuni; „Altă adresă” deschide câmpul de scris
+  const isSaved = (address: string) => savedAddresses.some((a) => a.address === address)
+  const [other, setOther] = useState(() => !!draft.deliveryAddress.trim() && !isSaved(draft.deliveryAddress))
+  const typing = savedAddresses.length === 0 || other || (!!draft.deliveryAddress.trim() && !isSaved(draft.deliveryAddress))
 
   return (
     <div className="step">
@@ -52,7 +74,46 @@ export function ScheduleStep({ draft, update, quote, showErrors, earliest, lates
         ))}
       </div>
 
-      {draft.deliveryMethod === 'delivery' && (
+      {draft.deliveryMethod === 'delivery' && savedAddresses.length > 0 && (
+        <>
+          <h3 className="section-title">Unde livrăm?</h3>
+          <div className="segmented saved-addresses" role="radiogroup" aria-label="Adresa de livrare">
+            {savedAddresses.map((a) => {
+              const active = !typing && draft.deliveryAddress === a.address
+              return (
+                <label key={a.id} className={active ? 'is-active' : ''}>
+                  <input
+                    type="radio"
+                    name="savedAddress"
+                    checked={active}
+                    onChange={() => {
+                      setOther(false)
+                      update({ deliveryAddress: a.address })
+                    }}
+                  />
+                  <strong>{a.label || 'Adresă salvată'}</strong>
+                  <small className="muted">{a.address}</small>
+                </label>
+              )
+            })}
+            <label className={typing ? 'is-active' : ''}>
+              <input
+                type="radio"
+                name="savedAddress"
+                checked={typing}
+                onChange={() => {
+                  setOther(true)
+                  if (isSaved(draft.deliveryAddress)) update({ deliveryAddress: '' })
+                }}
+              />
+              <strong>Altă adresă</strong>
+              <small className="muted">o scrieți mai jos</small>
+            </label>
+          </div>
+        </>
+      )}
+
+      {draft.deliveryMethod === 'delivery' && typing && (
         <label className="field">
           <span>Adresa de livrare</span>
           <input
@@ -93,6 +154,11 @@ export function ScheduleStep({ draft, update, quote, showErrors, earliest, lates
             <strong>{selected ? formatDateRo(selected) : '—'}</strong>
           </div>
           {showErrors && !selected && <p className="field-error">Alegeți o dată din calendar.</p>}
+          {bookedUnknown && (
+            <p className="info info-warn" role="status">
+              Nu am putut verifica acum zilele ocupate. Alegeți data dorită: v-o confirmăm la telefon.
+            </p>
+          )}
           <p className="info">
             Termen de execuție: <strong>{leadDays} zile lucrătoare</strong>
             {draft.custom.length > 0 && ', include elementele personalizate'}.
@@ -106,7 +172,7 @@ export function ScheduleStep({ draft, update, quote, showErrors, earliest, lates
               <span className="dot disabled" /> Indisponibil: weekend, sărbătoare sau prea devreme
             </li>
             <li>
-              <span className="dot booked" /> Zi complet ocupată ({calendarRules.maxOrdersPerDay} comenzi)
+              <span className="dot booked" /> Zi ocupată ({calendarRules.maxOrdersPerDay} comenzi) sau închisă
             </li>
           </ul>
         </div>

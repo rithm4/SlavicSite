@@ -1,0 +1,9 @@
+Texturi de lemn scanate, cu licență CC0: se pot folosi gratuit, inclusiv comercial, fără atribuire.
+
+wood022-*        ambientCG Wood022   https://ambientcg.com/view?id=Wood022
+                 lemnul lăditelor și al produselor; culoarea e adusă spre plopul crem în tools/art/render.ts
+                 (poplarColor), fibra și relieful rămân cele scanate. O placă de textură = 0,6 m (WOOD_TILE).
+bamboo_veneer-*  Poly Haven          https://polyhaven.com/a/bamboo_veneer
+                 lemnul paletului
+
+Varianta corectată, micșorată la 1k, ajunge în src/assets/wood/ pentru lădița din primul ecran.

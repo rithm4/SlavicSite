@@ -1,15 +1,35 @@
 import { standardProducts } from '../config/catalog'
 import { fromIsoDate, isFullyBooked, isWorkingDay } from './dates'
 import { validateCustomItem } from './pricing'
+import type { CompanyProfile } from './backend/types'
 import type { ClientInfo, OrderDraft, Quote } from './types'
+
+/**
+ * CUI (codul fiscal al firmei): 2–10 cifre, cu „RO” în față la plătitorii de TVA.
+ * Ultima cifră e cifra de control, calculată cu cheia 753217532.
+ */
+export function isValidCui(value: string): boolean {
+  const digits = value.trim().toUpperCase().replace(/^RO/, '').replace(/\s/g, '')
+  if (!/^\d{2,10}$/.test(digits)) return false
+  const body = digits.slice(0, -1).padStart(9, '0')
+  const key = [7, 5, 3, 2, 1, 7, 5, 3, 2]
+  const sum = [...body].reduce((acc, d, i) => acc + Number(d) * key[i], 0)
+  return ((sum * 10) % 11) % 10 === Number(digits.at(-1))
+}
 
 export function clientErrors(c: ClientInfo): Partial<Record<keyof ClientInfo, string>> {
   const errors: Partial<Record<keyof ClientInfo, string>> = {}
   if (!c.name.trim()) errors.name = c.type === 'pj' ? 'Introduceți denumirea firmei.' : 'Introduceți numele.'
-  if (c.type === 'pj' && !/^\d{13}$/.test(c.idno.trim())) errors.idno = 'IDNO trebuie să aibă 13 cifre.'
+  if (c.type === 'pj' && !isValidCui(c.cui)) errors.cui = 'Verificați CUI-ul: 2–10 cifre, cu sau fără „RO” în față.'
   if (!/^\+?[\d\s()-]{8,}$/.test(c.phone.trim())) errors.phone = 'Introduceți un număr de telefon valid.'
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email.trim())) errors.email = 'Introduceți un email valid.'
   return errors
+}
+
+/** Datele firmei din cont: aceleași reguli ca în formularul de comandă. */
+export function profileErrors(p: CompanyProfile): Partial<Record<keyof CompanyProfile, string>> {
+  const { name, cui, phone, email } = clientErrors({ ...p, type: 'pj', notes: '' })
+  return Object.fromEntries(Object.entries({ name, cui, phone, email }).filter(([, v]) => v))
 }
 
 export interface ScheduleContext {

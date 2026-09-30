@@ -1,12 +1,12 @@
-const moneyFormatter = new Intl.NumberFormat('ro-MD', {
+const moneyFormatter = new Intl.NumberFormat('ro-RO', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 })
 
 export const formatMoney = (n: number) => moneyFormatter.format(n)
-export const formatQty = (n: number) => new Intl.NumberFormat('ro-MD').format(n)
+export const formatQty = (n: number) => new Intl.NumberFormat('ro-RO').format(n)
 
-const palletNumber = new Intl.NumberFormat('ro-MD', { maximumFractionDigits: 1 })
+const palletNumber = new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 })
 
 /** „1 palet", „2,5 paleți", „20 de paleți". Sub 0,1 afișează „sub 0,1 paleți". */
 export function formatPallets(n: number): string {

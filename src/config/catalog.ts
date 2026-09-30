@@ -1,5 +1,8 @@
 // Catalogul și regulile de preț. Toate prețurile sunt FĂRĂ TVA, în EUR.
-// ATENȚIE: date de test, de înlocuit cu cele reale.
+// Produsele sunt elementele lăditei din config/crate.ts, cu aceleași dimensiuni ca lădița 3D.
+// ATENȚIE: prețurile și cantitățile pe palet sunt de test, de înlocuit cu cele reale.
+import { crate, crateElements, crateHeight } from './crate'
+import type { CrateElement } from './crate'
 
 export interface StandardProduct {
   id: string
@@ -12,16 +15,31 @@ export interface StandardProduct {
   piecesPerPallet: number
   /** Comanda minimă, în unități. */
   minQty: number
+  /** Câte bucăți intră într-o lădiță (pentru elemente). */
+  perCrate?: number
+  /** Ce conține (pentru set). */
+  contents?: string
 }
 
+const size = (e: CrateElement) => `${e.length} × ${e.width} × ${e.thickness}`
+const { side, end, slat, cleat, post } = crateElements
+
 export const standardProducts: StandardProduct[] = [
-  { id: 'lat-400', name: 'Scândură laterală', size: '400 × 100 × 10', unit: 'buc', price: 0.23, minQty: 50, piecesPerPallet: 3000 },
-  { id: 'lat-500', name: 'Scândură laterală', size: '500 × 100 × 10', unit: 'buc', price: 0.27, minQty: 50, piecesPerPallet: 2400 },
-  { id: 'cap-300', name: 'Scândură capăt', size: '300 × 100 × 15', unit: 'buc', price: 0.21, minQty: 50, piecesPerPallet: 2000 },
-  { id: 'fund-400', name: 'Fund placaj', size: '400 × 300 × 4', unit: 'buc', price: 0.49, minQty: 20, piecesPerPallet: 1500 },
-  { id: 'sipca-20', name: 'Șipcă de colț', size: '250 × 20 × 20', unit: 'buc', price: 0.08, minQty: 100, piecesPerPallet: 5000 },
-  { id: 'maner', name: 'Scândură cu mâner decupat', size: '300 × 120 × 15', unit: 'buc', price: 0.35, minQty: 20, piecesPerPallet: 1500 },
-  { id: 'set-403020', name: 'Set ladă completă (nemontată)', size: '400 × 300 × 200', unit: 'set', price: 2.9, minQty: 10, piecesPerPallet: 60 },
+  { id: 'laterala', name: 'Laterală', size: size(side), unit: 'buc', price: 0.12, minQty: 100, piecesPerPallet: 6000, perCrate: side.count },
+  { id: 'capat', name: 'Capăt', size: size(end), unit: 'buc', price: 0.1, minQty: 100, piecesPerPallet: 9000, perCrate: end.count },
+  { id: 'fund', name: 'Scândură de fund', size: size(slat), unit: 'buc', price: 0.19, minQty: 100, piecesPerPallet: 2500, perCrate: slat.count },
+  { id: 'traversa', name: 'Traversă', size: size(cleat), unit: 'buc', price: 0.1, minQty: 100, piecesPerPallet: 8500, perCrate: cleat.count },
+  { id: 'montant', name: 'Montant de colț triunghiular', size: size(post), unit: 'buc', price: 0.08, minQty: 200, piecesPerPallet: 14000, perCrate: post.count },
+  {
+    id: 'set-lada',
+    name: 'Set ladă completă (nemontată)',
+    size: `${crate.length} × ${crate.width} × ${crateHeight}`,
+    unit: 'set',
+    price: 1.69,
+    minQty: 10,
+    piecesPerPallet: 400,
+    contents: `${side.count} laterale, ${end.count} capete, ${slat.count} scânduri de fund, ${cleat.count} traverse, ${post.count} montanți`,
+  },
 ]
 
 export interface WoodType {

@@ -11,7 +11,7 @@ export function ReviewStep({ draft, quote }: StepProps) {
     <div className="step">
       <header className="step-head">
         <h2>Verificați comanda</h2>
-        <p className="hint">Dacă totul e corect, generați contul de plată. PDF-ul se descarcă automat.</p>
+        <p className="hint">Dacă totul e corect, generați factura proformă. PDF-ul se descarcă automat.</p>
       </header>
 
       <table className="review-table">
@@ -51,7 +51,7 @@ export function ReviewStep({ draft, quote }: StepProps) {
 
       <div className="review-info">
         <div>
-          <h4>{draft.deliveryMethod === 'delivery' ? 'Livrare' : 'Ridicare de la sediu'}</h4>
+          <h3>{draft.deliveryMethod === 'delivery' ? 'Livrare' : 'Ridicare de la sediu'}</h3>
           <p>
             {draft.date && formatDateRo(fromIsoDate(draft.date))} · ≈ {formatPallets(quote.totalPallets)}
             {draft.deliveryMethod === 'delivery' && (
@@ -64,9 +64,10 @@ export function ReviewStep({ draft, quote }: StepProps) {
           </p>
         </div>
         <div>
-          <h4>Cumpărător</h4>
+          <h3>Cumpărător</h3>
           <p>
-            {c.name}, IDNO {c.idno}
+            {c.name}, CUI {c.cui}
+            {c.regCom && <>, {c.regCom}</>}
             <br />
             {c.contactPerson && <>{c.contactPerson} · </>}
             {c.phone} · {c.email}

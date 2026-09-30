@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { standardProducts } from '../config/catalog'
 import { currency } from '../config/company'
 import { formatMoney, formatQty } from '../lib/format'
+import { productPhoto } from '../lib/productPhotos'
 import type { QtyUnit } from '../lib/types'
 import { CustomItems } from './CustomItems'
 import { QtyInput } from './QtyInput'
@@ -79,13 +80,18 @@ export function ProductsStep(props: StepProps) {
             const tooLow = qty > 0 && qty < p.minQty
             return (
               <li className={`product-row${qty > 0 ? ' is-selected' : ''}`} key={p.id}>
-                <div className="product-info">
-                  <strong>
-                    {p.name} <span className="product-size">{p.size} mm</span>
-                  </strong>
-                  <span className="muted">
-                    {formatMoney(p.price)} {currency}/{p.unit} · {formatQty(p.piecesPerPallet)} {p.unit}/palet
-                  </span>
+                <div className="product-main">
+                  {productPhoto(p.id) && (
+                    <img className="product-thumb" src={productPhoto(p.id)} width={152} height={89} alt="" loading="lazy" decoding="async" />
+                  )}
+                  <div className="product-info">
+                    <strong>
+                      {p.name} <span className="product-size">{p.size} mm</span>
+                    </strong>
+                    <span className="muted">
+                      {formatMoney(p.price)} {currency}/{p.unit} · {formatQty(p.piecesPerPallet)} {p.unit}/palet
+                    </span>
+                  </div>
                 </div>
                 <QtyInput
                   qty={qty}

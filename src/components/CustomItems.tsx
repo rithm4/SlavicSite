@@ -115,7 +115,8 @@ export function CustomItems({ draft, update }: StepProps) {
                 label={`element ${index + 1}`}
                 onChange={(qty) => patchItem(item.id, { qty })}
               />
-              <small className="muted">≈ {formatQty(perPallet)} buc/palet</small>
+              {/* în paleți, bucățile se văd deja sub cantitate */}
+              {draft.qtyUnit === 'piece' && <small className="muted">≈ {formatQty(perPallet)} buc/palet</small>}
             </div>
 
             <div className="checks">

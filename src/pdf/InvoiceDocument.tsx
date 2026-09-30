@@ -16,9 +16,9 @@ Font.register({
 })
 Font.registerHyphenationCallback((word) => [word])
 
-const ACCENT = '#1f3a5f'
+const ACCENT = '#1a1814'
 const MUTED = '#666'
-const LINE = '#dde2e8'
+const LINE = '#e7e4de'
 
 const s = StyleSheet.create({
   page: { fontFamily: 'Roboto', fontSize: 9, padding: 36, color: '#222', lineHeight: 1.35 },
@@ -43,7 +43,7 @@ const s = StyleSheet.create({
   totalRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 2 },
   grand: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 4, paddingTop: 5, borderTop: `1pt solid ${ACCENT}`, fontSize: 11, fontWeight: 'bold' },
   words: { marginTop: 10 },
-  payBox: { marginTop: 16, padding: 10, backgroundColor: '#f3f6fa', borderRadius: 3 },
+  payBox: { marginTop: 16, padding: 10, backgroundColor: '#f4f3ef', borderRadius: 3 },
   payRow: { flexDirection: 'row', marginBottom: 2 },
   payLabel: { width: 110, color: MUTED },
   footer: { marginTop: 28, flexDirection: 'row', justifyContent: 'space-between' },
@@ -51,7 +51,7 @@ const s = StyleSheet.create({
   note: { position: 'absolute', bottom: 24, left: 36, right: 36, fontSize: 7.5, color: MUTED, textAlign: 'center' },
 })
 
-const palletCount = new Intl.NumberFormat('ro-MD', { maximumFractionDigits: 1 })
+const palletCount = new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 })
 const formatPalletCount = (n: number) => (n > 0 && n < 0.1 ? '<0,1' : palletCount.format(n))
 
 function InvoiceDocument({ order }: { order: SavedOrder }) {
@@ -59,10 +59,10 @@ function InvoiceDocument({ order }: { order: SavedOrder }) {
   const issued = new Date(order.issuedAt)
   const validUntil = addDays(issued, invoiceValidityDays)
   const client = draft.client
-  const purpose = `Achitare conform cont de plată nr. ${order.number} din ${formatDateRo(issued)}`
+  const purpose = `Plată proformă nr. ${order.number} din ${formatDateRo(issued)}`
 
   return (
-    <Document title={`Cont de plată ${order.number}`} author={company.name}>
+    <Document title={`Factură proformă ${order.number}`} author={company.name}>
       <Page size="A4" style={s.page}>
         <View style={s.header}>
           <View>
@@ -73,10 +73,10 @@ function InvoiceDocument({ order }: { order: SavedOrder }) {
             </Text>
           </View>
           <View>
-            <Text style={s.title}>CONT DE PLATĂ</Text>
+            <Text style={s.title}>FACTURĂ PROFORMĂ</Text>
             <Text style={{ textAlign: 'right' }}>nr. {order.number}</Text>
             <Text style={[s.muted, { textAlign: 'right' }]}>din {formatDateRo(issued)}</Text>
-            <Text style={[s.muted, { textAlign: 'right' }]}>valabil până la {formatDateRo(validUntil)}</Text>
+            <Text style={[s.muted, { textAlign: 'right' }]}>valabilă până la {formatDateRo(validUntil)}</Text>
           </View>
         </View>
 
@@ -84,17 +84,18 @@ function InvoiceDocument({ order }: { order: SavedOrder }) {
           <View style={s.party}>
             <Text style={s.label}>Furnizor</Text>
             <Text style={s.bold}>{company.name}</Text>
-            <Text>IDNO: {company.idno}</Text>
-            <Text>Cod TVA: {company.vatCode}</Text>
+            <Text>CUI: {company.cui}</Text>
+            <Text>Nr. Reg. Com.: {company.regCom}</Text>
             <Text>IBAN: {company.bank.iban}</Text>
             <Text>
-              {company.bank.name}, cod {company.bank.code}
+              {company.bank.name}, SWIFT {company.bank.code}
             </Text>
           </View>
           <View style={s.party}>
             <Text style={s.label}>Cumpărător</Text>
             <Text style={s.bold}>{client.name}</Text>
-            {client.type === 'pj' && <Text>IDNO: {client.idno}</Text>}
+            {client.type === 'pj' && <Text>CUI: {client.cui}</Text>}
+            {client.regCom ? <Text>Nr. Reg. Com.: {client.regCom}</Text> : null}
             {client.contactPerson ? <Text>Persoană de contact: {client.contactPerson}</Text> : null}
             {client.address ? <Text>{client.address}</Text> : null}
             <Text>
@@ -172,14 +173,14 @@ function InvoiceDocument({ order }: { order: SavedOrder }) {
         </Text>
 
         <View style={s.payBox} wrap={false}>
-          <Text style={[s.label, { marginBottom: 5 }]}>Date pentru achitare</Text>
+          <Text style={[s.label, { marginBottom: 5 }]}>Date pentru plată</Text>
           {[
             ['Beneficiar', company.name],
-            ['IDNO', company.idno],
+            ['CUI', company.cui],
             ['IBAN', company.bank.iban],
-            ['Banca', `${company.bank.name}, cod ${company.bank.code}`],
+            ['Banca', `${company.bank.name}, SWIFT ${company.bank.code}`],
             ['Suma', `${formatMoney(quote.total)} ${currency}`],
-            ['Destinația plății', purpose],
+            ['Detalii plată', purpose],
           ].map(([label, value]) => (
             <View style={s.payRow} key={label}>
               <Text style={s.payLabel}>{label}</Text>
@@ -205,12 +206,12 @@ function InvoiceDocument({ order }: { order: SavedOrder }) {
         ) : null}
 
         <View style={s.footer} wrap={false}>
-          <Text style={s.sign}>Director: {company.director}</Text>
+          <Text style={s.sign}>Administrator: {company.director}</Text>
           <Text style={s.sign}>Semnătura / ștampila</Text>
         </View>
 
         <Text style={s.note} fixed>
-          Document generat electronic. Producția începe după confirmarea plății. Contul de plată nu este factură fiscală.
+          Document generat electronic. Factura proformă nu este document fiscal. Producția începe după confirmarea plății.
         </Text>
       </Page>
     </Document>

@@ -1,24 +1,47 @@
 :root {
-  --bg: #f6f7f9;
+  /* Paletă: alb, grafit și chihlimbar.
+     Aleasă după analiza a 25 de site-uri europene din lemn, ambalaje și producție:
+     fundal alb (19 din 20), text aproape negru și un singur accent puternic, folosit rar
+     (ca la Kebony, Dinesen). Chihlimbarul nu e folosit de niciun producător din sector. */
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-2: #f8f9fb;
-  --text: #1c2430;
-  --muted: #667085;
-  --border: #e3e6eb;
-  --border-strong: #cfd4dc;
-  --accent: #1f3a5f;
-  --accent-hover: #172d4a;
-  --accent-soft: #eef3f9;
+  --surface-2: #f7f6f3;
+  --sand: #f4f3ef;              /* carduri */
+  --sand-2: #e9e6df;            /* hover, linii în carduri */
+  --text: #1a1814;
+  --muted: #6a665f;
+  --border: #e7e4de;
+  --border-strong: #d3cec5;
+  --input-border: #a39d92;      /* chenarul câmpurilor: destul de închis ca să se vadă pe orice ecran */
+  --ring: 0 0 0 3px rgba(26, 24, 20, 0.12);
+  --accent: #1a1814;            /* butoane principale: grafit */
+  --accent-hover: #34302a;
+  --accent-soft: #f4f3ef;
   --on-accent: #ffffff;
+  --on-accent-muted: #b3aea5;
+  --wood: #d9a86c;
+  --wood-dark: #9a6128;
+  --accent-2: #f2a93b;          /* chihlimbar: accentul folosit rar */
+  --accent-2-hover: #e89a26;
+  --accent-2-ink: #9a6212;      /* chihlimbar lizibil ca text pe alb */
+  --on-accent-2: #1a1814;
+  --on-accent-2-muted: #4a3a1e;
+  --dark: #1a1814;              /* carduri închise și subsol */
+  --dark-hover: #2a2620;
+  --on-dark-muted: #b3aea5;
+  --on-dark-faint: #8c877e;
   --danger: #b42318;
   --danger-soft: #fef3f2;
   --success: #067647;
-  --radius: 8px;
-  --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+  --radius: 10px;
+  --radius-lg: 24px;
+  --shadow: 0 1px 2px rgba(28, 27, 24, 0.04), 0 2px 6px rgba(28, 27, 24, 0.05);
 
-  --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'Onest', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --display: 'Geologica', 'Onest', system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 
-  font: 16px/1.5 var(--sans);
+  font: 16px/1.55 var(--sans);
   color: var(--text);
   background: var(--bg);
   color-scheme: light;
@@ -42,9 +65,11 @@ h2,
 h3,
 h4 {
   margin: 0 0 0.4em;
-  line-height: 1.25;
+  line-height: 1.2;
   color: var(--text);
+  font-family: var(--display);
   font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 p {

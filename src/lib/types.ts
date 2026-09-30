@@ -17,8 +17,10 @@ export type QtyUnit = 'pallet' | 'piece'
 export interface ClientInfo {
   type: ClientType
   name: string
-  /** IDNO — obligatoriu doar pentru persoane juridice. */
-  idno: string
+  /** CUI (cod fiscal), obligatoriu pentru firme */
+  cui: string
+  /** Nr. Reg. Com., opțional */
+  regCom: string
   contactPerson: string
   phone: string
   email: string
