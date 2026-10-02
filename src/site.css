@@ -309,6 +309,10 @@ a.btn-icon,
     background: var(--bg);
     border-bottom: 1px solid var(--border);
     box-shadow: 0 16px 32px rgba(28, 27, 24, 0.08);
+    /* nu iese din ecran pe telefoanele scunde sau culcate */
+    max-height: calc(100svh - 72px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .site-nav.is-open {
@@ -321,13 +325,21 @@ a.btn-icon,
     font-size: 1rem;
   }
 
-  .site-nav .header-phone,
+  /* pe telefon ordinea e: paginile, cardul contului, apoi acțiunile (comanda, telefonul) */
   .nav-cta {
-    margin: 6px 0 0;
+    order: 2;
+    margin: 14px 0 0;
+    padding: 13px;
   }
 
-  .nav-cta {
-    padding: 13px;
+  .site-nav a.header-phone {
+    order: 3;
+    justify-content: center;
+    margin: 8px 0 0;
+    padding: 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    color: var(--text);
   }
 }
 

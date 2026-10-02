@@ -1,4 +1,4 @@
-import { Menu, Phone, UserRound, X } from 'lucide-react'
+import { ChevronRight, Menu, Phone, UserRound, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { company } from '../../config/company'
 import { useAccount } from '../../lib/account'
@@ -82,10 +82,17 @@ export function Header({ route }: { route: Page }) {
             <Phone size={16} aria-hidden="true" />
             {company.phone}
           </a>
-          {/* contul de client; panoul admin are adresa lui și nu apare în meniu */}
+          {/* contul de client; panoul admin are adresa lui și nu apare în meniu.
+              Pe telefon e un card separat de pagini, cu subtitlul și săgeata vizibile doar acolo */}
           <a className="header-account" href={href('cont')} aria-current={route === 'cont' ? 'page' : undefined}>
-            <UserRound size={17} aria-hidden="true" />
-            {user ? 'Contul meu' : 'Intră în cont'}
+            <span className="header-account-icon">
+              <UserRound size={17} aria-hidden="true" />
+            </span>
+            <span className="header-account-text">
+              {user ? 'Contul meu' : 'Intră în cont'}
+              <small>Comenzile și documentele firmei</small>
+            </span>
+            <ChevronRight className="header-account-chevron" size={18} aria-hidden="true" />
           </a>
           <a className="btn nav-cta" href={href('comanda')} aria-current={route === 'comanda' ? 'page' : undefined}>
             Comandă online
